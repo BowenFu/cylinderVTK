@@ -4,8 +4,8 @@ import numpy
 length = 20
 diameter = 0.028
 node_number = 81
-start_time = 150.04
-end_time = 159.96
+start_time = 32.2
+end_time = 39.96
 time_step = .04
 time_interval = 0.0004
 skip_step = int(round(time_step / time_interval))
@@ -16,7 +16,7 @@ radius_length, angle_length = diameter / 2, 360.0
 radius_delta, angle_delta = (radius_length - 0.1 * diameter) / radius_number,\
     angle_length / angle_number
 
-time, displacement_x, displacement_y = numpy.loadtxt('displacement.dat', unpack=True)
+time, displacement_x, displacement_y = numpy.loadtxt('totalDisplacement.dat', unpack=True)
 time.shape = -1, node_number
 time = time[:,0]
 time_select = (time >= start_time) & (time <= end_time)
@@ -36,7 +36,7 @@ y = numpy.zeros((radius_number + 1, angle_number + 1, node_number))
 z = numpy.zeros((radius_number + 1, angle_number + 1, node_number))
 
 # Group
-vtk_group = VtkGroup("riser/RiserGroup")
+vtk_group = VtkGroup("cylinder/RiserGroup")
 # cnt=0
 for time_index in range(time.size):
     for k in range(node_number):
@@ -56,7 +56,7 @@ for time_index in range(time.size):
     #
     # Output
     str1 = str(time_index)
-    filename = 'riser/' + 'riser' + str1.zfill(4)
+    filename = 'cylinder/' + 'cylinder' + str1.zfill(4)
     filename_extension = filename + '.vts'
     gridToVTK(filename, x, y, z)
 
